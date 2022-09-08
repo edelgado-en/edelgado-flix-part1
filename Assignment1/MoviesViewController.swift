@@ -77,7 +77,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         task.resume()
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // get the selected movie from sender
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)!
+        let movie = movies[indexPath.row]
+        
+        // Set field value in the destionation controller
+        let detailsViewController = segue.destination as! MovieDetailsViewController
+        detailsViewController.movie = movie
+        
+        
+        //deselect row to provide better user experience
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+    }
 
 }
 
